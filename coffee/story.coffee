@@ -1,38 +1,38 @@
-cc = () -> _.each arguments, (arg) -> console.log arg
+cc = () -> $.each arguments, (i, arg) -> console.log arg
 
 $ ->
+	$w = $ window
+	h = $w.height() / 5
+	$skyline = $(".fuckin-gorgeous")
 
-	_w = $ window
+	$.fn.adata = (key, val) ->
+		@attr("data-"+key, val)
+		cc @get()
+		@
 
-	$.fn.StoryBoard = (options) ->
+	Number::between = (low, hi) ->
+		val = @valueOf()
+		val >= low and val < hi
 
-		opts = _.extend {
-			imagepath: 'images/'
-			slides: []
-		}, options
+	$w.scroll ->
+		pos = Math.floor($w.scrollTop())
+		cc pos
+		if pos.between(200, 1600)
+			$messages = $skyline.find(".message-bubble")
+			if pos.between(350, 600) 
+				do ->
+					$messages.eq(0).fadeIn("fast")
+			else if pos.between(700, 950) 
+				do ->
+					$skyline.addClass("zoomed").adata("zoom", "one")
+					$messages.slice(1,3).fadeIn("fast")
+			else if pos.between(1150, 1250)
+				do -> 
+					$skyline.adata("zoom", "ten")
+					$messages.eq(3).fadeIn("fast")
+			else if pos.between(1400, 1600)
+				do ->
+					cc "unzooming"
+					$skyline.adata("zoom", "")
 
-		Wrapper = (bg) ->
-			return $("<div/>").addClass("scroll-slide-wrapper").css("background", "url(" + opts.imagepath + bg + ") center center fixed no-repeat");
 
-		createSlides = (slides) ->
-			# refers to the DOM caller
-			self = @
-			_.each slides, (slide) ->
-				if slide.src?
-					$wrap = new Wrapper(slide.src)
-					$wrap.appendTo self
-
-
-		_top = 0
-		createSlides.call @, opts.slides
-		_w.scroll -> 
-			_top = _w.scrollTop()
-			cc _top
-
-	$("body").StoryBoard({
-		slides: [
-			{
-				src: 'aerial.jpg'
-			}
-		]
-	})

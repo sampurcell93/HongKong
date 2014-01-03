@@ -10,12 +10,130 @@
 	@include box-sizing(border-box);
 }
 
+$mon: 'Montserrat', sans-serif;
+$oxygen: 'Oxygen', sans-serif;
+$runway: #1f2539;
+
 body, html {
 	height: 100%;
+    font-family: $oxygen;
+    height: 10000px;
 }
 
-.scroll-slide-wrapper {
-	display: block;
-	height: 100%;
-	width: 100%;
+
+@-webkit-keyframes bounce {
+    from { margin-top: 0px; }
+    to { margin-top: 20px; }
+}
+
+h1 {
+    font-size: 3em;
+    font-weight: 400;
+}
+
+.story-wrapper {
+    position: relative;
+
+    &.zoomed {
+        &[data-zoom='one'] {
+            @include transform(scale(1.1));
+        }
+        &[data-zoom='two'] {
+            @include transform(scale(1.2));
+        }
+        &[data-zoom='three'] {
+            @include transform(scale(1.3));
+        }
+        &[data-zoom='four'] {
+            @include transform(scale(1.4));
+        }
+        &[data-zoom='five'] {
+            @include transform(scale(1.5));
+        }
+        &[data-zoom='six'] {
+            @include transform(scale(1.6));
+        }
+        &[data-zoom='seven'] {
+            @include transform(scale(1.7));
+        }
+        &[data-zoom='eight'] {
+            @include transform(scale(1.8));
+        }
+        &[data-zoom='nine'] {
+            @include transform(scale(1.9));
+        }
+        &[data-zoom='ten'] {
+            @include transform(scale(2));
+        }
+    }
+}
+
+.container {
+    margin: 0 auto;
+    width: 960px;
+    position: relative;
+}
+
+.message-bubble {
+    @include border-radius(3px);
+    @include box-shadow(0px 0px 4px #111);
+//    -webkit-animation: bounce 6s infinite alternate ease-in-out;
+    display: none;
+    position: absolute;
+    padding: 10px;
+    background: rgba(0,0,0,.67);
+    color: #ddd;
+    line-height: 1.7;
+
+    &.large {   
+        font-size: 1.4em;
+    }
+
+    &.center {
+        width: 600px;
+        left: 50%;
+        margin-left: -300px;
+        text-align: center;
+    }
+
+    &.inyaface { text-transform: uppercase; }
+
+    &.showing { display: block; }
+}
+
+.taking-off {
+    background: url("../images/runway.jpg") center 0px repeat-y fixed, $runway;
+    @include box-shadow(inset 0px -4px 10px #000);
+    height: 1000px;
+}
+
+.fuckin-gorgeous {
+    @include transition(all .3s ease-in-out);
+    height: 1000px;
+    background: url("../images/hongkonghires.jpg") center center no-repeat;
+
+    .message-bubble {
+        &:first-of-type {
+            top: 20px;
+            left: 100px;
+        }
+        &:nth-of-type(2) {
+            right: 100px;
+            top: 260px;
+        }
+        &:nth-of-type(3) {
+            left: 200px;
+            top: 430px;
+        }
+        &:nth-of-type(4) {
+            top: 600px;
+        }
+    }
+}
+
+.so-what {
+    background: $runway;
+    color: #f9f9f9;
+    padding: 100px;
+    text-align: center;
 }
